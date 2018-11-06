@@ -41,12 +41,13 @@ GLfloat m_s1[] = {18};
 
 CTexture cielo; //Cielo
 CTexture pasto;
+CTexture adoquin;
 
 //Se utilizarán para definir cada figura que el programador cree//
 CFiguras f_jorge;
 CFiguras f_hugo;
-CFiguras f_ventilador;
-//CFiguras f_diego;
+CFiguras f_diego;
+CFiguras f_metz;
 
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
@@ -85,7 +86,9 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	pasto.BuildGLTexture();
 	pasto.ReleaseImage();
 
-	
+	adoquin.LoadTGA("Exterior/adoquin.tga");
+	adoquin.BuildGLTexture();
+	adoquin.ReleaseImage();	
 
 	////Carga de Figuras
 	////kit.VertexNormals();
@@ -140,7 +143,15 @@ void display(void)   // Creamos la funcion donde se dibuja
 			glPopMatrix(); //Creación del Piso/pasto
 
 	///////////DIBUJAR
-
+			glPushMatrix(); //Creación del adoquin
+				glEnable(GL_COLOR_MATERIAL);
+				glDisable(GL_LIGHTING);
+				glRotatef(90, 0.0, 0.0, 1.0);
+				glTranslatef(-28.0, 0.0, 0.0);
+				f_jorge.piso(700, 1.5, 500, adoquin.GLindex, adoquin.GLindex, adoquin.GLindex, adoquin.GLindex, adoquin.GLindex, adoquin.GLindex);
+				glDisable(GL_COLOR_MATERIAL);
+				glEnable(GL_LIGHTING);
+			glPopMatrix(); //Creación del adoquin
 	//////////
 	glPopMatrix();//Pop para todo el escenario,2
 

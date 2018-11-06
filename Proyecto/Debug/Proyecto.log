@@ -1,4 +1,4 @@
-﻿Compilación iniciada a las 03/11/2018 11:30:36 a. m..
+﻿Compilación iniciada a las 06/11/2018 02:25:21 p. m..
      1>Proyecto "C:\Users\monte\Desktop\CG_FINAL\Computacion_Grafica\Proyecto\Proyecto.vcxproj" en el nodo 2 (Build destinos).
        El archivo del proyecto contiene ToolsVersion="15.0". Este conjunto de herramientas falta o es desconocido, en cuyo caso es posible que pueda resolver este problema instalando la versión apropiada de MSBuild. También es posible que, por motivos de directiva, se haya exigido a la compilación que use un valor determinado para ToolsVersion. Se tratará el proyecto como si contuviera ToolsVersion="4.0". Para obtener más información, vea http://go.microsoft.com/fwlink/?LinkId=291333.
      1>ClCompile:
@@ -14,4 +14,4 @@
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:03.93
+Tiempo transcurrido 00:00:05.08

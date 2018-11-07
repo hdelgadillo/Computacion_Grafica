@@ -16,9 +16,9 @@
 #include "texture.h"
 #include "figuras.h"
 #include "Camera.h"
-
+#include <Windows.h>
 #include "cmodel/CModel.h"
-
+#include <MMSystem.h>
 //Solo para Visual Studio 2015
 #if (_MSC_VER >= 1900)
 #   pragma comment( lib, "legacy_stdio_definitions.lib" )
@@ -154,6 +154,55 @@ void animacion()
 {
 }
 
+void sonidominecraft() {
+
+	PlaySound(TEXT("music/minecraft.wav"), NULL, SND_ASYNC|SND_LOOP);
+}
+
+
+void undertale() {
+
+	PlaySound(TEXT("music/snowy.wav"), NULL, SND_ASYNC | SND_LOOP);
+}
+
+void undertale2() {
+
+	PlaySound(TEXT("music/ruin.wav"), NULL, SND_ASYNC | SND_LOOP);
+}
+
+void FinalFantasy() {
+
+	PlaySound(TEXT("music/final.wav"), NULL, SND_ASYNC | SND_LOOP);
+}
+void zelda() {
+
+	PlaySound(TEXT("music/zelda.wav"), NULL, SND_ASYNC | SND_LOOP);
+}
+void donkeykong() {
+
+	PlaySound(TEXT("music/donkeykong.wav"), NULL, SND_ASYNC | SND_LOOP);
+}
+void pokemon() {
+
+	PlaySound(TEXT("music/pokemon.wav"), NULL, SND_ASYNC | SND_LOOP);
+}
+void sonic() {
+
+	PlaySound(TEXT("music/sonic.wav"), NULL, SND_ASYNC | SND_LOOP);
+}
+
+void witcher() {
+
+	PlaySound(TEXT("music/witcher.wav"), NULL, SND_ASYNC | SND_LOOP);
+}
+void thelast() {
+
+	PlaySound(TEXT("music/thelast.wav"), NULL, SND_ASYNC | SND_LOOP);
+}
+
+
+
+
 void reshape ( int width , int height )   // Creamos funcion Reshape
 {
   if (height==0)										// Prevenir division entre cero
@@ -195,6 +244,37 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 		case 'd':
 		case 'D':
 			objCamera.Strafe_Camera( CAMERASPEED+0.4 );
+			break;
+
+		case '0':
+			undertale();
+			break;
+		case '1':
+			sonidominecraft();
+			break;
+		case '2':
+			undertale2();
+			break;
+		case '3':
+			FinalFantasy();
+			break;
+		case '4':
+			zelda();
+			break;
+		case '5':
+			donkeykong();
+			break;
+		case '6':
+			pokemon();
+			break;
+		case '7':
+			sonic();
+			break;
+		case '8':
+			witcher();
+			break;
+		case '9':
+			thelast();
 			break;
 
 		case 27:        // Cuando Esc es presionado...
@@ -250,12 +330,13 @@ int main ( int argc, char** argv )   // Main Function
   glutCreateWindow    ("Proyecto Final CG"); // Nombre de la Ventana
   //glutFullScreen     ( );         // Full Screen
   InitGL ();						// Parametros iniciales de la aplicacion
+  sonidominecraft();
   glutDisplayFunc     ( display );  //Indicamos a Glut función de dibujo
   glutReshapeFunc     ( reshape );	//Indicamos a Glut función en caso de cambio de tamano
   glutKeyboardFunc    ( keyboard );	//Indicamos a Glut función de manejo de teclado
   glutSpecialFunc     ( arrow_keys );	//Otras
   glutIdleFunc		  ( animacion );
   glutMainLoop        ( );          // 
-
+  
   return 0;
 }

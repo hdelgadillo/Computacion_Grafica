@@ -225,57 +225,79 @@ void reshape ( int width , int height )   // Creamos funcion Reshape
 
 void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 {
-	switch ( key ) {
-		case 'w':   //Movimientos de camara
-		case 'W':
-			objCamera.Move_Camera( CAMERASPEED+0.4 );
+	switch (key) {
+	case 'w':   //Movimientos de camara
+	case 'W':
+		objCamera.Move_Camera(CAMERASPEED + 0.4);
+		printf("%f %f %f %f %f %f %f %f %f\n", objCamera.mPos.x, objCamera.mPos.y, objCamera.mPos.z,
+			objCamera.mView.x, objCamera.mView.y, objCamera.mView.z,
+			objCamera.mUp.x, objCamera.mUp.y, objCamera.mUp.z);
+		break;
+
+	case 's':
+	case 'S':
+		objCamera.Move_Camera(-(CAMERASPEED + 0.4));
+		break;
+
+	case 'a':
+	case 'A':
+		objCamera.Strafe_Camera(-(CAMERASPEED + 0.4));
+		break;
+
+	case 'd':
+	case 'D':
+		objCamera.Strafe_Camera(CAMERASPEED + 0.4);
+		break;
+
+	case '0':
+		undertale();
+		break;
+	case '1':
+		sonidominecraft();
+		break;
+	case '2':
+		undertale2();
+		break;
+	case '3':
+		FinalFantasy();
+		break;
+	case '4':
+		zelda();
+		break;
+	case '5':
+		donkeykong();
+		break;
+	case '6':
+		pokemon();
+		break;
+	case '7':
+		sonic();
+		break;
+	case '8':
+		witcher();
+		break;
+	case '9':
+		thelast();
+		break;
+	case'j':
+	case 'J':
+		objCamera.Position_Camera(-397.804779f, 293.700104f, -280.190399, -395.4518, 293.700104f, -278.329315,0.0,  1, 0);
+			break;
+		case'o':
+		case 'O':
+			objCamera.Position_Camera(376.265900, 293.700104f, -295.896515f, 374.336975, 293.700104f, -293.598907, 0, 1, 0);
+			break;
+		case'p':
+		case 'P':
+			objCamera.Position_Camera(158.774948, 293.700104f, -2.348673, 155.809784, 293.700104f, -1.893221, 0, 1, 0);
+			break;
+		case'L':
+		case 'l':
+			objCamera.Position_Camera(10, 2.5f, 13, 10, 2.5f, 10, 0, 1, 0);
 			break;
 
-		case 's':
-		case 'S':
-			objCamera.Move_Camera(-(CAMERASPEED+0.4));
-			break;
 
-		case 'a':
-		case 'A':
-			objCamera.Strafe_Camera(-(CAMERASPEED+0.4));
-			break;
-
-		case 'd':
-		case 'D':
-			objCamera.Strafe_Camera( CAMERASPEED+0.4 );
-			break;
-
-		case '0':
-			undertale();
-			break;
-		case '1':
-			sonidominecraft();
-			break;
-		case '2':
-			undertale2();
-			break;
-		case '3':
-			FinalFantasy();
-			break;
-		case '4':
-			zelda();
-			break;
-		case '5':
-			donkeykong();
-			break;
-		case '6':
-			pokemon();
-			break;
-		case '7':
-			sonic();
-			break;
-		case '8':
-			witcher();
-			break;
-		case '9':
-			thelast();
-			break;
+		
 
 		case 27:        // Cuando Esc es presionado...
 			exit ( 0 );   // Salimos del programa

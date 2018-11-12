@@ -48,20 +48,24 @@ CFiguras f_hugo;
 CFiguras f_ventilador;
 //CFiguras f_diego;
 
+
+//Modelos
+CModel tren;
+
 			
-void InitGL ( GLvoid )     // Inicializamos parametros
+void InitGL(GLvoid)     // Inicializamos parametros
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);				// Negro de fondo	
 
 	glEnable(GL_TEXTURE_2D);
 
-	glShadeModel (GL_SMOOTH);
+	glShadeModel(GL_SMOOTH);
 	glLightfv(GL_LIGHT1, GL_POSITION, Position);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, Diffuse);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
-	glEnable ( GL_COLOR_MATERIAL );
+	glEnable(GL_COLOR_MATERIAL);
 
 	glClearDepth(1.0f);									// Configuramos Depth Buffer
 	glEnable(GL_DEPTH_TEST);							// Habilitamos Depth Testing
@@ -73,10 +77,10 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 	/* setup blending */
 	glEnable(GL_BLEND);			// Turn Blending On
-    
+
 
 	/*TEXTURAS*/
-    
+
 	cielo.LoadTGA("Exterior/cielo.tga");
 	cielo.BuildGLTexture();
 	cielo.ReleaseImage();
@@ -85,6 +89,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	pasto.BuildGLTexture();
 	pasto.ReleaseImage();
 
+	//tren._3dsLoad("modelos/tren/tren.3ds");
 	
 
 	////Carga de Figuras
@@ -109,6 +114,38 @@ void pintaTexto(float x, float y, float z, void *font,char *string)
 }
 
 
+void monitor(void) {
+
+	glPushMatrix();
+		glScalef(1.5, 1, .1);
+		f_hugo.prisma2(0, 0);
+		glTranslatef(0, -.5, 0);
+	glPushMatrix();
+		glScalef(.1, .8, .1);
+		f_hugo.prisma2(0, 0);
+	glPopMatrix();
+	glTranslatef(0, -.4,0);
+	glPushMatrix();
+		glScalef(.5, .09, .5);
+		f_hugo.prisma2(0, 0);
+	glPopMatrix();
+	
+	glPushMatrix();
+	
+		glScalef(.06, .09, 6);
+		f_hugo.prisma2(0, 0);
+	glPopMatrix();
+	
+	glPopMatrix();
+
+
+
+
+
+	
+
+}
+
 void display(void)   // Creamos la funcion donde se dibuja
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -125,6 +162,7 @@ void display(void)   // Creamos la funcion donde se dibuja
 			glPushMatrix(); //Creamos cielo
 				glDisable(GL_LIGHTING);
 				glTranslatef(0, 60, 0);
+				
 				f_hugo.skybox(800.0, 500.0, 600.0, cielo.GLindex); //tamaño del skybox
 				glEnable(GL_LIGHTING);
 			glPopMatrix();//Creamos cielo
@@ -134,12 +172,21 @@ void display(void)   // Creamos la funcion donde se dibuja
 				glDisable(GL_LIGHTING);
 				glRotatef(90, 0.0, 0.0, 1.0);
 				glTranslatef(-30.0, 0.0, 0.0);
+				glPushMatrix();
+				glPopMatrix();
+
 				f_hugo.piso(800, 1.5, 600, pasto.GLindex, pasto.GLindex, pasto.GLindex, pasto.GLindex, pasto.GLindex, pasto.GLindex);
 				glDisable(GL_COLOR_MATERIAL);
 				glEnable(GL_LIGHTING);
 			glPopMatrix(); //Creación del Piso/pasto
 
 	///////////DIBUJAR
+
+		glPushMatrix(); 
+		monitor();
+		
+			
+		glPopMatrix();
 
 	//////////
 	glPopMatrix();//Pop para todo el escenario,2

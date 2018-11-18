@@ -42,15 +42,29 @@ GLfloat m_s1[] = {18};
 CTexture cielo; //Cielo
 CTexture pasto;
 
+//---------------------METZTLI----------------------//
+
+CTexture maceta;
+CTexture arbol1;
+CTexture pastito_ma;
+CTexture teclado;
+CTexture pantalla1;
+CTexture madera1;
+CTexture pantalla2;
+CTexture mouse;
+CTexture Textcasa;//Paredes blancas
+CTexture adoquin;
+
 //Se utilizarán para definir cada figura que el programador cree//
 CFiguras f_jorge;
 CFiguras f_hugo;
-CFiguras f_ventilador;
-//CFiguras f_diego;
-
+CFiguras f_diego;
+CFiguras f_Metz;
 
 //Modelos
 CModel tren;
+CModel pino;
+CModel m_arbol;
 
 			
 void InitGL(GLvoid)     // Inicializamos parametros
@@ -81,6 +95,10 @@ void InitGL(GLvoid)     // Inicializamos parametros
 
 	/*TEXTURAS*/
 
+	adoquin.LoadTGA("Exterior/adoquin.tga");
+	adoquin.BuildGLTexture();
+	adoquin.ReleaseImage();	
+
 	cielo.LoadTGA("Exterior/cielo.tga");
 	cielo.BuildGLTexture();
 	cielo.ReleaseImage();
@@ -89,7 +107,48 @@ void InitGL(GLvoid)     // Inicializamos parametros
 	pasto.BuildGLTexture();
 	pasto.ReleaseImage();
 
+	Textcasa.LoadTGA("Torre/Textcasa.tga");
+	Textcasa.BuildGLTexture();
+	Textcasa.ReleaseImage();
+
+	////*********** METZ **************//
+
+	arbol1.LoadTGA("texturas/cedro.tga");
+	arbol1.BuildGLTexture();
+	arbol1.ReleaseImage();
+
+	maceta.LoadTGA("texturas/piedra2.tga");
+	maceta.BuildGLTexture();
+	maceta.ReleaseImage();
+
+	pastito_ma.LoadTGA("texturas/pastoj.tga");
+	pastito_ma.BuildGLTexture();
+	pastito_ma.ReleaseImage();
+
+	teclado.LoadTGA("texturas/teclado.tga");
+	teclado.BuildGLTexture();
+	teclado.ReleaseImage();
+
+	pantalla1.LoadTGA("texturas/pantalla1.tga");
+	pantalla1.BuildGLTexture();
+	pantalla1.ReleaseImage();
+
+	madera1.LoadTGA("texturas/madera1.tga");
+	madera1.BuildGLTexture();
+	madera1.ReleaseImage();
+
+	pantalla2.LoadTGA("texturas/pantalla2.tga");
+	pantalla2.BuildGLTexture();
+	pantalla2.ReleaseImage();
+
+	mouse.LoadTGA("texturas/mouse.tga");
+	mouse.BuildGLTexture();
+	mouse.ReleaseImage();
+	////***********fin  METZ **************//
+
 	//tren._3dsLoad("modelos/tren/tren.3ds");
+	pino._3dsLoad("modelos/pino.3ds");
+	m_arbol._3dsLoad("modelos/arbol.3ds");
 	
 
 	////Carga de Figuras
@@ -112,7 +171,6 @@ void pintaTexto(float x, float y, float z, void *font,char *string)
     glutBitmapCharacter(font, *c); //imprime
   }
 }
-
 
 void monitor(void) {
 
@@ -146,10 +204,463 @@ void monitor(void) {
 
 }
 
+///************************************* METZ   **************************************************//
+void computadora(GLuint text)
+{
+	glPushMatrix();
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.1);
+	f_Metz.prisma_textura(2.5, 0.1, 0.5, teclado.GLindex);
+	glTranslatef(1.5, 0.0, 0.0);
+	f_Metz.prisma_textura(0.2, 0.1, 0.23, 0.0);
+	glPopMatrix();
+
+	glTranslatef(0.0, 0.0, -0.5);
+	f_Metz.cilindro(0.2, 0.3, 23.0, 0);
+	glTranslatef(0.0, 1.0, 0.0);
+	glPushMatrix();
+	f_Metz.prisma_textura(2.0, 1.5, 0.2, text);
+	glTranslatef(0.0, 0.0, 0.1);
+	f_Metz.prisma_textura(1.9, 1.0, 0.1, mouse.GLindex);
+	glDisable(GL_ALPHA_TEST);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+}
+
+
+void mesa(GLfloat xPosMesa, GLfloat yPosMesa, GLfloat zPosMesa)
+{
+	//tabla
+	glPushMatrix();
+	glTranslatef(xPosMesa, yPosMesa, zPosMesa);
+	glPushMatrix();
+	f_Metz.prisma_textura(15.0, 0.3, 2.5, madera1.GLindex);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, -0.75, 0);
+	//patas
+	glPushMatrix();
+	glTranslatef(-7.0, 0.0, 0.5);
+	f_Metz.prisma_textura(0.5, 1.0, 0.5, madera1.GLindex);
+	glTranslatef(0, 0, -1.0);
+	f_Metz.prisma_textura(0.5, 1.0, 0.5, madera1.GLindex);
+	glTranslatef(14.0, 0, 0);
+	f_Metz.prisma_textura(0.5, 1.0, 0.5, madera1.GLindex);
+	glTranslatef(0, 0, 1.0);
+	f_Metz.prisma_textura(0.5, 1.0, 0.5, madera1.GLindex);
+	glPopMatrix();
+	glPopMatrix();
+	glPopMatrix();
+
+}
+
+void mesa_comp(GLfloat xPosMes, GLfloat yPosMes, GLfloat zPosMes) {
+	glPushMatrix();
+	glTranslatef(xPosMes, yPosMes, zPosMes);
+	glPushMatrix();
+	mesa(0.0, 0.0, 0.0);
+	glTranslatef(2.6, 0.3, 0.0);
+	glPushMatrix();
+
+	computadora(pantalla1.GLindex);
+	glTranslatef(2.1, 0.0, 0.4);
+	f_Metz.prisma_textura(1.0, 2.0, 1.8, 0);
+	glPopMatrix();
+
+	glTranslatef(-4.0, 0.0, 0.0);
+	glPushMatrix();
+	computadora(pantalla2.GLindex);
+	glTranslatef(2.1, 0.0, 0.4);
+	f_Metz.prisma_textura(1.0, 2.0, 1.8, 0);
+	glPopMatrix();
+
+	glTranslatef(-4.0, 0.0, 0.0);
+	glPushMatrix();
+	computadora(pantalla1.GLindex);
+	glTranslatef(2.1, 0.0, 0.4);
+	f_Metz.prisma_textura(1.0, 2.0, 1.8, 0);
+	glPopMatrix();
+	glPopMatrix();
+	glPopMatrix();
+
+}
+
+
+void arbol(GLuint textura)
+{
+	glPushMatrix();
+	glDisable(GL_LIGHTING);
+	glEnable(GL_ALPHA_TEST);
+	//glDisable(GL_DEPTH_TEST);   // Turn Depth Testing Off
+	glAlphaFunc(GL_GREATER, 0.1);
+	//glEnable(GL_BLEND);     // Turn Blending On
+	//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+	glBindTexture(GL_TEXTURE_2D, textura);
+	glBegin(GL_QUADS); //plano
+	glColor3f(1.0, 1.0, 1.0);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-10.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(10.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(10.0, 20.0, 0.0);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-10.0, 20.0, 0.0);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(45, 0, 1, 0);
+	glBegin(GL_QUADS); //plano
+	glColor3f(1.0, 1.0, 1.0);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-10.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(10.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(10.0, 20.0, 0.0);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-10.0, 20.0, 0.0);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(-45, 0, 1, 0);
+	glBegin(GL_QUADS); //plano
+	glColor3f(1.0, 1.0, 1.0);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-10.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(10.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(10.0, 20.0, 0.0);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-10.0, 20.0, 0.0);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(90, 0, 1, 0);
+	glBegin(GL_QUADS); //plano
+	glColor3f(1.0, 1.0, 1.0);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-10.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(10.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(10.0, 20.0, 0.0);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-10.0, 20.0, 0.0);
+	glEnd();
+	glDisable(GL_ALPHA_TEST);
+	//glDisable(GL_BLEND);        // Turn Blending Off
+	//glEnable(GL_DEPTH_TEST);    // Turn Depth Testing On
+	glEnable(GL_LIGHTING);
+
+	glPopMatrix();
+}
+
+
+void jardinera(void){
+			   //      ******     JARDINERA    *****   //
+	glPushMatrix();
+		glRotatef(90,0,1,0);	
+
+		glTranslatef(-30, -0.4, -25);
+		f_Metz.prisma_textura(12.0, 6.0, 23.0, maceta.GLindex);
+		glPushMatrix();
+			glTranslatef(0.0, 3.0, 0.0);
+			f_Metz.prisma_textura(12.0, 0.5, 23.0, pasto.GLindex);
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(0.0, -3.0, 11.5);
+			f_Metz.cilindro(6, 6.0, 60, maceta.GLindex);
+				glPushMatrix();
+					glTranslatef(0.0, 5.8, 0.0);
+					f_Metz.cilindro(6.0, 0.5, 60, pasto.GLindex);
+				glPopMatrix();
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(0.0, 0.0, -17.0);
+			f_Metz.triang(6.0, 12.0, 11.0, maceta.GLindex);
+				glPushMatrix();
+					glTranslatef(0.0, 2.8, 0.0);
+					f_Metz.triang(1.0, 12.0, 11.0, pasto.GLindex);
+				glPopMatrix();
+		glPopMatrix();
+
+	glPopMatrix();
+}
+///************************************* fin METZ   **************************************************//
+void pared(void) {
+	glPushMatrix();
+	glScalef(23, 20, 1);
+	f_diego.prisma2 (Textcasa.GLindex, Textcasa.GLindex);
+	glPopMatrix();
+}
+
+void platabaja(void) {
+
+	glPushMatrix();//inicio pared
+	glTranslatef(25, 40, -10.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 1, 2);
+	pared();
+	glPopMatrix();//fin pared
+
+	glPushMatrix();//inicio pared
+	glTranslatef(25, 40, -89.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 1, 2);
+	pared();
+	glPopMatrix();//fin pared
+
+	glPushMatrix();//inicio pared1
+	glTranslatef(-55.1, 10, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared1
+
+	glPushMatrix();//inicio pared2
+	glTranslatef(25, 10, -89.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(7, 2, 2);
+	pared();
+	glPopMatrix();//fin pared2
+
+	glPushMatrix();//inicio pared3
+	glTranslatef(104.5, 10, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared3
+
+	glPushMatrix();//inicio pared4
+	glTranslatef(25, 10, -10.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(7, 2, 2);
+	pared();
+	glPopMatrix();//fin pared4
+	
+	glPushMatrix();//inicio pared5
+	glTranslatef(0, 10, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared5
+
+	glPushMatrix();//inicio pared6
+	glTranslatef(50, 10, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared6
+
+	glPushMatrix();//inicio pared7
+	glTranslatef(77, 10, -50);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.35, 2, 2);
+	pared();
+	glPopMatrix();//fin pared7
+
+	glPushMatrix();//inicio pared8
+	glTranslatef(-28, 10, -50);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.35, 2, 2);
+	pared();
+	glPopMatrix();//fin pared8
+
+	
+
+}
+
+void torre1(void) {
+
+
+	///piso 1
+	glPushMatrix();//inicio pared1
+	glTranslatef(-55.1, 50, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared1
+
+	glPushMatrix();//inicio pared2
+	glTranslatef(0, 50, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared2
+
+	glPushMatrix();//inicio pared3
+	glTranslatef(-28, 50, -50);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.35, 2, 2);
+	pared();
+	glPopMatrix();//fin pared3
+
+
+	glPushMatrix();//inicio pared4
+	glTranslatef(-28, 50, -10.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 2, 2);
+	pared();
+	glPopMatrix();//fin pared4
+
+	glPushMatrix();//inicio pared5
+	glTranslatef(-28, 50, -89.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 2, 2);
+	pared();
+	glPopMatrix();//fin pared5
+	
+	glPushMatrix();//techo piso 1
+	glTranslatef(-28, 69, -50);
+	glRotatef(90, 1, 0, 0);
+	glScalef(2.4, 4, 2);
+	pared();
+	glPopMatrix();//fin techo piso 1
+
+
+	///fin piso 1
+
+	///piso 2
+	glPushMatrix();//inicio pared1
+	glTranslatef(-55.1, 90, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared1
+
+	glPushMatrix();//inicio pared2
+	glTranslatef(0, 90, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared2
+
+	glPushMatrix();//inicio pared3
+	glTranslatef(-28, 90, -50);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.35, 2, 2);
+	pared();
+	glPopMatrix();//fin pared3
+
+
+	glPushMatrix();//inicio pared4
+
+	glTranslatef(-28, 90, -10.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 2, 2);
+	pared();
+	glPopMatrix();//fin pared4
+
+	glPushMatrix();//inicio pared5
+	glTranslatef(-28, 90, -89.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 2, 2);
+	pared();
+	glPopMatrix();//fin pared5
+
+	glPushMatrix();//techo piso 2
+	glTranslatef(-28, 109, -50);
+	glRotatef(90, 1, 0, 0);
+	glScalef(2.4, 4, 2);
+	pared();
+	glPopMatrix();//fin techo piso 2
+
+	///Fin de piso 2
+
+	///piso 3
+	glPushMatrix();//inicio pared1
+	glTranslatef(-55.1, 130, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared1
+
+	glPushMatrix();//inicio pared2
+	glTranslatef(0, 130, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared2
+
+	glPushMatrix();//inicio pared3
+	glTranslatef(-28, 130, -50);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.35, 2, 2);
+	pared();
+	glPopMatrix();//fin pared3
+
+
+	glPushMatrix();//inicio pared4
+
+	glTranslatef(-28, 130, -10.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 2, 2);
+	pared();
+	glPopMatrix();//fin pared4
+
+	glPushMatrix();//inicio pared5
+	glTranslatef(-28, 130, -89.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 2, 2);
+	pared();
+	glPopMatrix();//fin pared5
+
+	glPushMatrix();//techo piso 3
+	glTranslatef(-28, 149, -50);
+	glRotatef(90, 1, 0, 0);
+	glScalef(2.4, 4, 2);
+	pared();
+	glPopMatrix();//fin techo piso 3
+
+	///fin de piso 3
+
+	///piso 4
+	glPushMatrix();//inicio pared1
+	glTranslatef(-55.1, 170, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared1
+
+	glPushMatrix();//inicio pared2
+	glTranslatef(0, 170, -50);
+	glRotatef(90, 0, 1, 0);
+	glScalef(3.5, 2, 2);
+	pared();
+	glPopMatrix();//fin pared2
+
+	glPushMatrix();//inicio pared3
+	glTranslatef(-28, 170, -50);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.35, 2, 2);
+	pared();
+	glPopMatrix();//fin pared3
+
+
+	glPushMatrix();//inicio pared4
+
+	glTranslatef(-28, 170, -10.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 2, 2);
+	pared();
+	glPopMatrix();//fin pared4
+
+	glPushMatrix();//inicio pared5
+	glTranslatef(-28, 170, -89.5);
+	glRotatef(180, 0, 1, 0);
+	glScalef(2.45, 2, 2);
+	pared();
+	glPopMatrix();//fin pared5
+
+	glPushMatrix();//techo piso 4
+	glTranslatef(-28, 189, -50);
+	glRotatef(90, 1, 0, 0);
+	glScalef(2.4, 4, 2);
+	pared();
+	glPopMatrix();//fin techo piso 4
+
+	///fin de piso 4
+}
+
 void display(void)   // Creamos la funcion donde se dibuja
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	glLoadIdentity();
 
 	glPushMatrix();//1
@@ -172,27 +683,96 @@ void display(void)   // Creamos la funcion donde se dibuja
 				glDisable(GL_LIGHTING);
 				glRotatef(90, 0.0, 0.0, 1.0);
 				glTranslatef(-30.0, 0.0, 0.0);
-				glPushMatrix();
-				glPopMatrix();
-
 				f_hugo.piso(800, 1.5, 600, pasto.GLindex, pasto.GLindex, pasto.GLindex, pasto.GLindex, pasto.GLindex, pasto.GLindex);
 				glDisable(GL_COLOR_MATERIAL);
 				glEnable(GL_LIGHTING);
 			glPopMatrix(); //Creación del Piso/pasto
 
+			//***************************************** metz   ******************************//
+
+			glPushMatrix();//jardinera
+				glTranslatef(0, 0, 0);
+				glScalef(1.0, 1.5, 1.0);
+				jardinera();
+			glPopMatrix();//fin plantabaja
+
+			//      ******    salon    *****   //
+			mesa_comp(3.9, 0.0, 12.0);
+			//      ******  fin  salon    *****   //
+
+			
+			glPushMatrix(); //Creación del piso
+			glEnable(GL_COLOR_MATERIAL);
+			glDisable(GL_LIGHTING);
+			glRotatef(90, 0.0, 0.0, 1.0);
+			glTranslatef(-30.0, -40, -135);
+			f_diego.piso(258, 1.7, 155, Textcasa.GLindex, Textcasa.GLindex, Textcasa.GLindex, Textcasa.GLindex, Textcasa.GLindex, Textcasa.GLindex);
+			glDisable(GL_COLOR_MATERIAL);
+			glEnable(GL_LIGHTING);
+			glPopMatrix(); //Creación del piso
+
+			glPushMatrix(); //Creación techo planta baja
+			glEnable(GL_COLOR_MATERIAL);
+			glDisable(GL_LIGHTING);
+			glRotatef(90, 0.0, 0.0, 1.0);
+			glTranslatef(0, -40, -135);
+			f_diego.piso(258, 1.7, 155, Textcasa.GLindex, Textcasa.GLindex, Textcasa.GLindex, Textcasa.GLindex, Textcasa.GLindex, Textcasa.GLindex);
+			glDisable(GL_COLOR_MATERIAL);
+			glEnable(GL_LIGHTING);
+			glPopMatrix(); //Creación techo plata baja
+			
+
+
+			//MODELOS
+			
+			glPushMatrix();//pino
+				//Para que conserve sus colores
+				glDisable(GL_COLOR_MATERIAL);
+				glTranslatef(0, 0, 0);
+				glScalef(1.3, 1.3, 1.3);
+				pino.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS										
+			glPopMatrix();
+			
+	///////////DIBUJAR
+			
+			glPushMatrix();//plantabaja
+			glTranslatef(0, -20, -35);
+			glScalef(1.6, 1, 2);
+			platabaja();
+			glPopMatrix();//fin plantabaja
+
+			glPushMatrix();//torre1
+			glTranslatef(0, -20, -35);
+			glScalef(1.6, 1, 2);
+			torre1();
+			glPopMatrix();//fin torre1
+
+			glPushMatrix();//torre2
+			glTranslatef(167, -20, -35);
+			glScalef(1.6, 1, 2);
+			torre1();
+			glPopMatrix();//fin torre2
+			
+
+			glPushMatrix(); //Creación del adoquin
+				glEnable(GL_COLOR_MATERIAL);
+				glDisable(GL_LIGHTING);
+				glRotatef(90, 0.0, 0.0, 1.0);
+				glTranslatef(-28.0, 0.0, 0.0);
+				f_jorge.piso(700, 1.5, 500, adoquin.GLindex, adoquin.GLindex, adoquin.GLindex, adoquin.GLindex, adoquin.GLindex, adoquin.GLindex);
+				glDisable(GL_COLOR_MATERIAL);
+				glEnable(GL_LIGHTING);
+			glPopMatrix(); //Creación del adoquin
+
+
 	///////////DIBUJAR
 
-		glPushMatrix(); 
-		monitor();
-		
-			
-		glPopMatrix();
 
 	//////////
 	glPopMatrix();//Pop para todo el escenario,2
 
 
-	glPopMatrix();
+	glPopMatrix();//1
 	glutSwapBuffers ( );
 
 }

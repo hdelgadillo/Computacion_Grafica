@@ -27,6 +27,6 @@ class CFiguras
 	void skybox(float altura, float largo, float profundidad, GLuint text);	//Funcion creacion cielo
 	void skybox2 (float altura, float largo, float profundidad, GLuint text);
 	void torus(GLfloat radioM, GLfloat radiom, int meridianos, int paralelos);
-
-
+	void prisma_textura1(float largo, float altura, float profundidad, GLuint text, GLuint text2);
+	void cilindro1(float radio, float altura, int resolucion, GLuint text, GLuint text2, GLuint text3);
 };

@@ -1,8 +1,14 @@
-﻿  Camera.cpp
-c:\users\diegu\onedrive\documentos\github\valenciaelpro\proyecto\camera.h(1): fatal error C1083: No se puede abrir el archivo incluir: 'Main.h': No such file or directory
-  figuras.cpp
-c:\users\diegu\onedrive\documentos\github\valenciaelpro\proyecto\figuras.h(6): fatal error C1083: No se puede abrir el archivo incluir: 'Main.h': No such file or directory
-  MainPFCG.cpp
-c:\users\diegu\onedrive\documentos\github\valenciaelpro\proyecto\texture.h(5): fatal error C1083: No se puede abrir el archivo incluir: 'Main.h': No such file or directory
-  texture.cpp
-c:\users\diegu\onedrive\documentos\github\valenciaelpro\proyecto\texture.h(5): fatal error C1083: No se puede abrir el archivo incluir: 'Main.h': No such file or directory
+﻿  MainPFCG.cpp
+LINK : warning LNK4075: se omite '/INCREMENTAL' debido a la especificación '/LTCG'
+  LINK : se especificó /LTCG pero no se requiere generación de código; quite /LTCG de la línea de comandos de vínculo para mejorar el rendimiento del vinculador
+cmodel.lib(_3dsloader.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(_3dsloader.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+cmodel.lib(CModel.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(CModel.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+cmodel.lib(CObject.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(CObject.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+cmodel.lib(GFILoader.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(GFILoader.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+cmodel.lib(GLRender.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(GLRender.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+cmodel.lib(HandleStream.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(HandleStream.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+cmodel.lib(imageload.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(imageload.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+cmodel.lib(MATRIX4X4.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(MATRIX4X4.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+cmodel.lib(VECTOR3D.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(VECTOR3D.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+cmodel.lib(VECTOR4D.obj) : warning LNK4099: no se encontró PDB 'vc70.pdb' con 'cmodel.lib(VECTOR4D.obj)' o en 'C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\vc70.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+  Proyecto.vcxproj -> C:\Users\Hugo_\Documents\GitHub\Computacion_Grafica\Release\Proyecto.exe
